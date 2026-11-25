@@ -34,3 +34,9 @@
 - HEAD check: local b834da2cb9ac7b3e8eea5e6021b12c55a0dfcd50 = remote HEAD (git ls-remote). Working tree clean; remote contains all 5 files.
 - README: 3 live make.fun badges (badge.svg, rank.svg, reward.svg). LICENSE: SPDX-License-Identifier: MIT. .makefun/owner.json wallet 8QhbYm7kNGpZ2FsrtVL1unDtK2KE7pcKcfXRfnZKu4jr — matches @rapid-pika-70.
 - No entry content changed — commit + push + About + verification only. Ready for finisher (bundle + submit).
+
+## Finisher fix (25 Nov 2026, fresh finisher agent)
+- Finding: main.py only printed the sentence — it never wrote /output/entry.txt, but the kit's harness runs the program in a sandbox with a FRESH /output and the sealed scorer gates on /output/entry.txt (1-200 chars). As built, the entry would have produced no artifact (Valid=0). Sibling entries (fake-horoscopes, one-liner-marathon, angry-judge) all write /output/entry.txt; this one did not.
+- Also: shared /output/entry.txt held stale cross-contamination (another bounty's text, 281 chars — over this bounty's 200-char cap).
+- Fix: main.py now writes the SAME 133-char sentence verbatim to /output/entry.txt and ./output/entry.txt (fallback pattern from siblings); sentence text unchanged.
+- Verified: `python3 main.py` writes 133 chars to both paths; both files byte-identical to the sentence; repo output/entry.txt added and committed.
